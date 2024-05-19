@@ -1,0 +1,38 @@
+[
+  {
+    "writer": "Ross",
+    "nationality": "USA",
+    "books": [
+      {
+        "title": "XML",
+        "price": 23.56
+      },
+      {
+        "title": "Python",
+        "price": 50.70
+      },
+      {
+        "title": "Numpy",
+        "price": 12.30
+      }
+    ]
+  },
+  {
+    "writer": "Bracket",
+    "nationality": "UK",
+    "books": [
+      {
+        "title": "Java",
+        "price": 28.60
+      },
+      {
+        "title": "HTML5",
+        "price": 31.35
+      },
+      {
+        "title": "Pandas",
+        "price": 28.00
+      }
+    ]
+  }
+]

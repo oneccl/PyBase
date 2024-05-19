@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev_info id="netmiko_inventory">
+   <R1 type="cisco">
+       <device_type>cisco_ios</device_type>
+       <username>admin</username>
+       <password>cisco</password>
+       <ip>192.168.47.10</ip>
+   </R1>
+   <SW3 type="huawei">
+       <device_type>huawei_vrpv8</device_type>
+       <username>admin</username>
+       <password>huawei</password>
+       <ip>192.168.47.30</ip>
+   </SW3>
+</dev_info>

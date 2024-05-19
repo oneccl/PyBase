@@ -1,0 +1,57 @@
+'UML（Unified Modeling Language）是一种统一建模语言，为面向对象开发系统的产品进行说明、可视化、和编制文档的一种标准语言，独立于任何具体程序设计语言
+
+'PlantUML是一款开源的UML图绘制工具，支持通过文本来生成图形，使用起来非常高效。可以支持时序图、类图、对象图、活动图、思维导图等图形的绘制
+
+'安装：PlantUML integration插件
+'PlantUML官网：https://plantuml.com/zh/
+'参考文章：https://juejin.cn/post/7017988314053492767
+
+'使用：
+'时序图（Sequence Diagram），是一种UML交互图。它通过描述对象之间发送消息的时间顺序显示多个对象之间的动态协作。我们在学习Oauth2的时候，第一步就是要搞懂Oauth2的流程，这时候有个时序图帮助可就大了。下面我们使用PlantUML来绘制Oauth2中使用授权码模式颁发令牌的时序图
+
+
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Oauth2令牌颁发之授权码模式
+
+actor User as user
+participant "User Agent" as userAgent
+participant "Client" as client
+participant "Auth Login" as login
+participant "Auth Server" as server
+
+autonumber
+user->userAgent:访问客户端
+activate userAgent
+userAgent->login:重定向到授权页面+clientId+redirectUrl
+activate login
+login->server:用户名+密码+clientId+redirectUrl
+activate server
+server-->login:返回授权码
+login-->userAgent:重定向到redirectUrl+授权码code
+deactivate login
+userAgent->client:使用授权码code换取令牌
+activate client
+client->server:授权码code+clientId+clientSecret
+server-->client:颁发访问令牌accessToken+refreshToken
+deactivate server
+client-->userAgent:返回访问和刷新令牌
+deactivate client
+userAgent--> user:令牌颁发完成
+deactivate userAgent
+
+@enduml
+
+
+'关键说明如下：
+'
+'- title可以用于指定UML图的标题
+'- 通过actor可以声明人形的参与者
+'- 通过participant可以声明普通类型的参与者
+'- 通过as可以给参与者取别名
+'- 通过->可以绘制参与者之间的关系，虚线箭头可以使用-->
+'- 在每个参与者关系后面，可以使用:给关系添加说明
+'- 通过autonumber我们可以给参与者关系自动添加序号
+'- 通过activate和deactivate可以指定参与者的生命线
+
