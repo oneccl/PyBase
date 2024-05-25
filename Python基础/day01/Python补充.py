@@ -181,6 +181,38 @@ print(get_quarter_range(2024))
 '''
 
 
+# Python中的字符串编码和解码
+
+# 和其他语言不同，Python3中有3种类型的字符串对象：str、unicode和bytes，它们之间的转换关系可以通过编码（encode）和解码（decode）描述
+# 例如，Requests模块中的`resp.text`响应的是`unicode`类型的字符串，`resp.content`则响应的是bytes类型的字符串，这时候就需要转换
+
+# str.encode(encoding)：字符串（str）=> 二进制（bytes）/unicode
+# bytes.decode(encoding)：二进制（bytes）/unicode => 字符串（str）
+
+# 3种字符串类型对应的转换关系如下：
+
+# 字符串 => 二进制（ASCII）
+s1 = "中文"
+s2 = s1.encode()
+print(s2)         # b'\xe4\xb8\xad\xe6\x96\x87'
+print(type(s2))   # <class 'bytes'>
+
+# 字符串 => unicode
+# 参数encoding取值：unicode-escape或raw_unicode_escape
+s3 = s1.encode('unicode-escape')
+print(s3)         # b'\\u4e2d\\u6587'
+print(type(s3))   # <class 'bytes'>
+
+# 二进制（ASCII） => 字符串
+s4 = s2.decode()
+print(s4)        # 中文
+print(type(s4))  # <class 'str'>
+
+# unicode => 字符串
+# 参数encoding取值：unicode-escape或raw_unicode_escape
+s5 = s3.decode('unicode-escape')
+print(s5)        # 中文
+print(type(s5))  # <class 'str'>
 
 
 

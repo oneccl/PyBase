@@ -197,3 +197,44 @@ plt.show()
 # 上面交叉验证默认使用准确度作为评价标准，如果想以ROC曲线的AUC值作为评分标准，可以设置`scoring`参数为`roc_auc`
 
 
+# 决策树分类在西瓜数据集上的应用
+from sklearn.tree import plot_tree
+from sklearn.preprocessing import OrdinalEncoder
+
+# 加载数据集
+path = r'C:\Users\cc\Desktop\watermelon_dataset\watermelon_3.csv'
+data = pd.read_csv(path)
+data.drop(columns=['编号', '密度', '含糖率'], inplace=True)
+# print(data.head().to_string())
+
+# 数据预处理
+# 序列编码
+enc = OrdinalEncoder()
+arr = enc.fit_transform(data)
+data = pd.DataFrame(arr, columns=data.columns)
+# print(data.head().to_string())
+
+# 特征
+X = data.iloc[:, 0: -1]
+# 标签
+y = data.iloc[:, -1]
+
+# 划分训练集和验证集
+X_train = X.drop(index=[4, 5, 8, 9, 11, 12, 13])
+y_train = y.drop(index=[4, 5, 8, 9, 11, 12, 13])
+X_test = X.iloc[[4, 5, 8, 9, 11, 12, 13], :]
+y_test = y.iloc[[4, 5, 8, 9, 11, 12, 13]]
+
+# 决策树分类器
+clf = DecisionTreeClassifier(criterion='entropy')
+# 训练模型
+clf.fit(X_train, y_train)
+# 在验证集上评分
+# print(clf.score(X_test, y_test))   # 0.42857142857142855
+
+# 决策树可视化
+plt.rcParams["font.family"] = "SimHei"
+plot_tree(clf, feature_names=data.columns, filled=True, rounded=True)
+# plt.show()
+
+
