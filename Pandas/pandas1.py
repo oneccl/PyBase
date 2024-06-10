@@ -365,6 +365,33 @@ df_concat = pd.concat([df, df2])
 '''
 8、value_counts()
 '''
+'''
+Series.value_counts(normalize,sort,ascending,bins,dropna)
+DataFrame.value_counts(subset,normalize,sort,ascending,dropna)
+- subset：Series对象
+- normalize：是否对统计结果进行标准化，默认False，如果为True，则返回统计的相对频率（频数占比，而非频数）
+- sort：是否对统计结果按频率排序，默认True，按频率排序，如果为False，则不进行排序
+- ascending：升序还是降序排序，默认False，降序排序，如果为True，则升序排序
+- bins：如果指定了bins参数，则将数值数据进行分箱，并计算每个箱子的频数，仅适用于数值数据
+- dropna：是否只统计非缺失值NaN的频数，默认True，如果为False，则包括缺失值的频数
+'''
+
+df = pd.DataFrame({'A': ['a', 'c', 'a', np.NaN], 'B': [2, 6, 3, 7]})
+
+print(df.value_counts(df['A'], dropna=False).reset_index())
+'''
+     A  count
+0    a      2
+1    c      1
+2  NaN      1
+'''
+print(df['A'].value_counts(normalize=True).reset_index())
+'''
+   A  proportion
+0  a    0.666667
+1  c    0.333333
+'''
+
 # 指定字段对该字段值计数，统计结果生成的列字段名默认为count，可重命名
 df = pd.DataFrame({'name': ['a', 'b', 'a'], 'age': [18, 20, 19]})
 # print(df)
