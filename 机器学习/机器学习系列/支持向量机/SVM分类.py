@@ -1,5 +1,5 @@
 
-# Scikit-Learn 支持向量机分类
+# Scikit-Learn支持向量机分类
 
 # https://blog.csdn.net/weixin_42279212/article/details/121504641
 
@@ -76,129 +76,129 @@ from sklearn import datasets
 # 手写数字数据集
 # 手写数字数据集由1797个8x8像素的数字图像组成。数据集的每个图像存储为8x8灰度值的二维数组；数据集的属性存储每个图像代表的数字，这包含在图像的标题中
 
-# # 加载手写数字数据集
-# data = datasets.load_digits()
-#
-# _, axes = plt.subplots(nrows=1, ncols=4, figsize=(10, 3))
-# for ax, image, label in zip(axes, data.images, data.target):
-#     ax.set_axis_off()
-#     image = image.reshape(8, 8)
-#     ax.imshow(image, cmap=plt.cm.gray_r, interpolation="nearest")
-#     ax.set_title(f"Label: {label}")
-#
-# # plt.show()
-#
-# # 手写数字图像存储为一个8x8的二维数组
-# # print(data.images[0])
-#
-# # 为了对这些数据应用分类器，我们需要将图像展平，将每个图像的灰度值从8x8的二维数组转换为64x1的一维数组
-# from sklearn.model_selection import train_test_split
-#
-# n_samples = len(data.images)
-# X = data.images.reshape((n_samples, -1))
-# y = data.target
-#
-# # 划分训练集（80%）和测试集（20%）
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-#
-# from sklearn.svm import SVC
-#
-# # SVM分类器
-# clf = SVC()
-#
-# # 训练模型
-# clf.fit(X_train, y_train)
-#
-# # 在测试集上预测
-# y_pred = clf.predict(X_test)
-#
-# # 准确度评分
-# print(clf.score(X_test, y_test))  # 0.9916666666666667
+# 加载手写数字数据集
+data = datasets.load_digits()
 
+_, axes = plt.subplots(nrows=1, ncols=4, figsize=(10, 3))
+for ax, image, label in zip(axes, data.images, data.target):
+    ax.set_axis_off()
+    image = image.reshape(8, 8)
+    ax.imshow(image, cmap=plt.cm.gray_r, interpolation="nearest")
+    ax.set_title(f"Label: {label}")
 
-# # 鸢尾花分类
-#
-# from matplotlib.colors import ListedColormap
-#
-# def decision_boundary_fill(model, axis):
-#     # np.meshgrid()：定义X/Y坐标轴上的起始点和结束点以及点的密度，返回这些网格点的X和Y坐标矩阵
-#     X0, X1 = np.meshgrid(
-#         np.linspace(axis[0], axis[1], int((axis[1] - axis[0]) * 100)).reshape(-1, 1),
-#         np.linspace(axis[2], axis[3], int((axis[3] - axis[2]) * 100)).reshape(-1, 1)
-#     )
-#     # ravel()：将高维数组降为一维数组
-#     # np.c_[]：将两个数组以列的形式拼接起来形成矩阵，这里将上面每个网格点的X和Y坐标组合
-#     X_grid_matrix = np.c_[X0.ravel(), X1.ravel()]
-#     # 通过训练好的逻辑回归模型，预测平面上这些网格点的分类
-#     y_grid_pred = model.predict(X_grid_matrix)
-#     y_pred_matrix = y_grid_pred.reshape(X0.shape)
-#     # plt.contourf(X,Y,Z)：绘制等高线，cmap用于设置填充轮廓，默认为viridis，还可设置为热力图色彩plt.cm.hot或自定义；alpha用于设置填充透明度
-#     # ListedColormap()：自定义填充色彩列表
-#     custom_cmap = ListedColormap(['#EF9A9A', '#FFF59D', '#90CAF9'])
-#     plt.contourf(X0, X1, y_pred_matrix, alpha=0.5, cmap=custom_cmap)
-#
-#
-# from sklearn import datasets
-# from sklearn.svm import SVC
-# from sklearn.model_selection import train_test_split
-#
-#
-# iris = datasets.load_iris()
-# # 使用鸢尾花前两个特征的前两个分类（二分类）
-# X = iris.data
-# y = iris.target
-# # X = X[y < 2, :2]
-# # y = y[y < 2]
-# #
-# # # 划分训练集（80%）和测试集（20%）
-# # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-# #
-# # # SVM分类器
-# # clf = SVC()
-# #
-# # # 训练模型
-# # clf.fit(X_train, y_train)
-# #
-# # # 在测试集上预测
-# # y_pred = clf.predict(X_test)
-# #
-# # # 准确度评分
-# # print(clf.score(X_test, y_test))  # 1.0
-# #
-# # # 二分类决策边界
-# # decision_boundary_fill(clf, axis=[4.0, 7.0, 2, 4.5])
-# # plt.scatter(X[y == 0, 0], X[y == 0, 1], color='red')
-# # plt.scatter(X[y == 1, 0], X[y == 1, 1], color='blue')
-# # plt.show()
-#
-#
-# # 使用鸢尾花前两个特征的全部分类（三分类）
-# X = iris.data[:, :2]
-# y = iris.target
-#
-# # 划分训练集（80%）和测试集（20%）
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-#
-# # SVM分类器
-# # clf = SVC(C=1.0, decision_function_shape='ovr', break_ties=True)
-# clf = SVC(kernel='poly', degree=20)
-#
-# # 训练模型
-# clf.fit(X_train, y_train)
-#
-# # 在测试集上预测
-# y_pred = clf.predict(X_test)
-#
-# # 准确度评分
-# print(clf.score(X_test, y_test))  # 0.7333333333333333
-# # 多项式核函数：degree=3：0.7333333333333333  degree=10：0.6333333333333333
-#
-# # 三分类决策边界
-# decision_boundary_fill(clf, axis=[4, 8, 1.9, 4.5])
-# plt.scatter(X[y == 0, 0], X[y == 0, 1], color='red')
-# plt.scatter(X[y == 1, 0], X[y == 1, 1], color='blue')
-# plt.scatter(X[y == 2, 0], X[y == 2, 1], color='green')
 # plt.show()
+
+# 手写数字图像存储为一个8x8的二维数组
+# print(data.images[0])
+
+# 为了对这些数据应用分类器，我们需要将图像展平，将每个图像的灰度值从8x8的二维数组转换为64x1的一维数组
+from sklearn.model_selection import train_test_split
+
+n_samples = len(data.images)
+X = data.images.reshape((n_samples, -1))
+y = data.target
+
+# 划分训练集（80%）和测试集（20%）
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+from sklearn.svm import SVC
+
+# SVM分类器
+clf = SVC()
+
+# 训练模型
+clf.fit(X_train, y_train)
+
+# 在测试集上预测
+y_pred = clf.predict(X_test)
+
+# 准确度评分
+print(clf.score(X_test, y_test))  # 0.9916666666666667
+
+
+# 鸢尾花分类
+
+from matplotlib.colors import ListedColormap
+
+def decision_boundary_fill(model, axis):
+    # np.meshgrid()：定义X/Y坐标轴上的起始点和结束点以及点的密度，返回这些网格点的X和Y坐标矩阵
+    X0, X1 = np.meshgrid(
+        np.linspace(axis[0], axis[1], int((axis[1] - axis[0]) * 100)).reshape(-1, 1),
+        np.linspace(axis[2], axis[3], int((axis[3] - axis[2]) * 100)).reshape(-1, 1)
+    )
+    # ravel()：将高维数组降为一维数组
+    # np.c_[]：将两个数组以列的形式拼接起来形成矩阵，这里将上面每个网格点的X和Y坐标组合
+    X_grid_matrix = np.c_[X0.ravel(), X1.ravel()]
+    # 通过训练好的逻辑回归模型，预测平面上这些网格点的分类
+    y_grid_pred = model.predict(X_grid_matrix)
+    y_pred_matrix = y_grid_pred.reshape(X0.shape)
+    # plt.contourf(X,Y,Z)：绘制等高线，cmap用于设置填充轮廓，默认为viridis，还可设置为热力图色彩plt.cm.hot或自定义；alpha用于设置填充透明度
+    # ListedColormap()：自定义填充色彩列表
+    custom_cmap = ListedColormap(['#EF9A9A', '#FFF59D', '#90CAF9'])
+    plt.contourf(X0, X1, y_pred_matrix, alpha=0.5, cmap=custom_cmap)
+
+
+from sklearn import datasets
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+
+
+iris = datasets.load_iris()
+# 使用鸢尾花前两个特征的前两个分类（二分类）
+X = iris.data
+y = iris.target
+X = X[y < 2, :2]
+y = y[y < 2]
+
+# 划分训练集（80%）和测试集（20%）
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# SVM分类器
+clf = SVC()
+
+# 训练模型
+clf.fit(X_train, y_train)
+
+# 在测试集上预测
+y_pred = clf.predict(X_test)
+
+# 准确度评分
+print(clf.score(X_test, y_test))  # 1.0
+
+# 二分类决策边界
+decision_boundary_fill(clf, axis=[4.0, 7.0, 2, 4.5])
+plt.scatter(X[y == 0, 0], X[y == 0, 1], color='red')
+plt.scatter(X[y == 1, 0], X[y == 1, 1], color='blue')
+plt.show()
+
+
+# 使用鸢尾花前两个特征的全部分类（三分类）
+X = iris.data[:, :2]
+y = iris.target
+
+# 划分训练集（80%）和测试集（20%）
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# SVM分类器
+# clf = SVC(C=1.0, decision_function_shape='ovr', break_ties=True)
+clf = SVC(kernel='poly', degree=20)
+
+# 训练模型
+clf.fit(X_train, y_train)
+
+# 在测试集上预测
+y_pred = clf.predict(X_test)
+
+# 准确度评分
+print(clf.score(X_test, y_test))  # 0.7333333333333333
+# 多项式核函数：degree=3：0.7333333333333333  degree=10：0.6333333333333333
+
+# 三分类决策边界
+decision_boundary_fill(clf, axis=[4, 8, 1.9, 4.5])
+plt.scatter(X[y == 0, 0], X[y == 0, 1], color='red')
+plt.scatter(X[y == 1, 0], X[y == 1, 1], color='blue')
+plt.scatter(X[y == 2, 0], X[y == 2, 1], color='green')
+plt.show()
 
 
 
